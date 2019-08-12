@@ -8,25 +8,28 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.view.setPadding
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     companion object {
-        var imageList = arrayOfNulls<ImageView>(12)
+        var imageList = arrayListOf<ImageView>()
         val layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-
+        var index =0
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-    //take args, add to list
-    fun addImageToList(image: Int) {
-        val newIV = ImageView(this)
-
-    }
+        //take args, add to list
+        fun addImageToList(image: Int) {
+            val newIV = ImageView(this)
+            newIV.setImageDrawable(ContextCompat.getDrawable(this, image))
+            imageList.add(newIV)
+        }
 
         addImageToList(R.drawable.abstract_abstract_expressionism_art_2505693)
         addImageToList(R.drawable.adventure_automobile_classic_2533092)
@@ -40,17 +43,24 @@ class MainActivity : AppCompatActivity() {
         addImageToList(R.drawable.clouds_coconut_trees_daylight_2486168)
         addImageToList(R.drawable.colorful_colourful_houses_2501965)
         addImageToList(R.drawable.wallpaper_astronomy_astrophotography_2538107)
+        refreshImages()
 
-        imageList.forEach{
-            it.layoutParams=layoutParams
-            it.adjustViewBounds= true
-            it.setPadding(2)
-            if ()
-                ll_right_column.addView(it)
-            else
-                ll_left_column.addView(it)
-        }
-
+    }
+    fun refreshImages(){
+        for (i in 0 until imageList.size-1) {
+            if (imageList[i] != null) {
+                imageList[i].layoutParams = layoutParams
+                imageList[i].adjustViewBounds = true
+                imageList[i].setPadding(2)
+                if (i % 2 == 0)
+                    ll_right_column.addView(imageList[i])
+                else
+                    ll_left_column.addView(imageList[i])
+            }
+            else {
+                println("didntwork $i")
+            }
         }
     }
 }
+
