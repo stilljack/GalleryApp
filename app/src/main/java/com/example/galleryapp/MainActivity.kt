@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         //take args, add to list
         fun addImageToList(image: Int) {
             val newIV = ImageView(this)
-            newIV.setImageDrawable(ContextCompat.getDrawable(this, image))
+            newIV.setImageDrawable(getDrawable(image))
             imageList.add(newIV)
         }
 
@@ -46,9 +46,8 @@ class MainActivity : AppCompatActivity() {
         refreshImages()
 
     }
-    fun refreshImages(){
+/*    fun refreshImages(){
         for (i in 0 until imageList.size-1) {
-            if (imageList[i] != null) {
                 imageList[i].layoutParams = layoutParams
                 imageList[i].adjustViewBounds = true
                 imageList[i].setPadding(2)
@@ -57,11 +56,20 @@ class MainActivity : AppCompatActivity() {
                     ll_right_column.addView(imageList[i])
                 else
                     ll_left_column.addView(imageList[i])
-            }
-            else {
-                println("didntwork $i")
-            }
+        }
+    }*/
+    fun refreshImages(){
+        imageList.forEach {
+            it.layoutParams = layoutParams
+            it.adjustViewBounds = true
+            it.setPadding(2)
+            it.contentDescription = "@string/what_is_pictures"
+            if (imageList.indexOf(it) % 2 == 0)
+                ll_right_column.addView(it)
+            else
+                ll_left_column.addView(it)
         }
     }
+
 }
 
