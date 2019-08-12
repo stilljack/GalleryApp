@@ -52,6 +52,7 @@ class MainActivity : AppCompatActivity() {
                 imageList[i].layoutParams = layoutParams
                 imageList[i].adjustViewBounds = true
                 imageList[i].setPadding(2)
+                imageList[i].contentDescription = "@string/what_is_pictures"
                 if (i % 2 == 0)
                     ll_right_column.addView(imageList[i])
                 else
